@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -18,9 +19,14 @@ public class EntidadePersistivel {
     private Long id;
 
     @Column(nullable = false)
-    private LocalDate dataCriacao;
+    private LocalDateTime dataCriacao;
 
     @Column(nullable = false)
-    private LocalDate dataAlteracao;
+    private LocalDateTime dataAlteracao;
 
+    @PrePersist
+    public void prePersist() {
+        dataCriacao = LocalDateTime.now();
+        dataAlteracao = LocalDateTime.now();
+    }
 }
