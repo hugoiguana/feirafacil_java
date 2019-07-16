@@ -1,4 +1,4 @@
-package dto;
+package br.com.iguana.feirafacil.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

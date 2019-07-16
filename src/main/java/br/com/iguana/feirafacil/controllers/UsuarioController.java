@@ -1,13 +1,11 @@
-package controllers;
+package br.com.iguana.feirafacil.controllers;
 
-import domain.Usuario;
+import br.com.iguana.feirafacil.domain.Usuario;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 

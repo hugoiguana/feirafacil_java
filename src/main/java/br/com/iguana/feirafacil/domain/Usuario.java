@@ -1,4 +1,4 @@
-package domain;
+package br.com.iguana.feirafacil.domain;
 
 import lombok.*;
 
