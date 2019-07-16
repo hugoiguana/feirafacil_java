@@ -2,7 +2,6 @@ package br.com.iguana.feirafacil.config.security.carga;
 
 import br.com.iguana.feirafacil.domain.Usuario;
 import br.com.iguana.feirafacil.repositories.UsuarioRepository;
-import br.com.iguana.feirafacil.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
