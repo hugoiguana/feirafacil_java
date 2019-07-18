@@ -1,4 +1,4 @@
-package br.com.iguana.feirafacil.config.security.carga;
+package br.com.iguana.feirafacil.config.carga;
 
 import br.com.iguana.feirafacil.domain.Usuario;
 import br.com.iguana.feirafacil.repositories.UsuarioRepository;
@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.Arrays;
 
@@ -15,6 +16,9 @@ public class CargaInicialDev implements CommandLineRunner {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
+
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
 
     @Override
     public void run(String... args) throws Exception {
@@ -26,11 +30,14 @@ public class CargaInicialDev implements CommandLineRunner {
         u1.setId(1l);
         u1.setNome("Hugo Iguana");
         u1.setEmail("hugo.iguanaa@gmail.com");
+        u1.setSenha(passwordEncoder.encode("1234"));
 
         Usuario u2 = new Usuario();
         u2.setId(2l);
         u2.setNome("Aline Lucia");
         u2.setEmail("aline-4000@hotmail.com");
+        u2.setSenha(passwordEncoder.encode("1234"));
+
         usuarioRepository.saveAll(Arrays.asList(u1, u2));
     }
 

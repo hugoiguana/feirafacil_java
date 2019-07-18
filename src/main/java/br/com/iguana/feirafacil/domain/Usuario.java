@@ -1,14 +1,22 @@
 package br.com.iguana.feirafacil.domain;
 
-import lombok.*;
+import br.com.iguana.feirafacil.domain.enums.Perfil;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Table(name = "usuario")
 @AttributeOverride(name = "id", column = @Column(name = "usu_id"))
 public class Usuario extends EntidadePersistivel {
 
@@ -21,4 +29,22 @@ public class Usuario extends EntidadePersistivel {
     @Column(name = "usu_senha")
     private String senha;
 
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "perfis")
+    private List<Integer> perfis = new ArrayList<>();
+
+    @PrePersist
+    public void prePersist() {
+        perfis.add(Perfil.USUARIO.getCodigo());
+    }
+
+    public List<Perfil> getPerfis() {
+        return perfis.stream().map(x -> Perfil.toEnum(x)).collect(Collectors.toList());
+    }
+
+    public void addPerfil(Perfil perfil) {
+        if (perfil != null) {
+            perfis.add(perfil.getCodigo());
+        }
+    }
 }
