@@ -8,7 +8,7 @@ public enum Perfil {
     ADMIN(1, "ROLE_ADMIN"),
     USUARIO(2, "ROLE_USUARIO");
 
-    private Integer codigo;
+    private int codigo;
     private String role;
 
     private Perfil(Integer codigo, String role) {

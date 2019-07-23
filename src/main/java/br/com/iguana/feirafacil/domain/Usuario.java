@@ -8,7 +8,9 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Getter
@@ -31,11 +33,12 @@ public class Usuario extends EntidadePersistivel {
 
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "perfis")
-    private List<Integer> perfis = new ArrayList<>();
+    private Set<Integer> perfis = new HashSet<>();
 
     @PrePersist
     public void prePersist() {
-        perfis.add(Perfil.USUARIO.getCodigo());
+        super.prePersist();
+        addPerfil(Perfil.USUARIO);
     }
 
     public List<Perfil> getPerfis() {

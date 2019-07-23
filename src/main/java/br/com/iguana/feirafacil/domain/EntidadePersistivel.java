@@ -26,7 +26,6 @@ public class EntidadePersistivel {
     @Column(nullable = false)
     private LocalDateTime dataAlteracao;
 
-    @PrePersist
     public void prePersist() {
         dataCriacao = LocalDateTime.now();
         dataAlteracao = LocalDateTime.now();

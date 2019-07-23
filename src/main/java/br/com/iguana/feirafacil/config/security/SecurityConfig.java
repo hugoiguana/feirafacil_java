@@ -1,5 +1,6 @@
 package br.com.iguana.feirafacil.config.security;
 
+import br.com.iguana.feirafacil.services.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,7 +27,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private Environment env;
 
     @Autowired
-    private UserDetailsService userDetailsService;
+    private UserDetailsServiceImpl userDetailsService;
 
     @Autowired
     private JWTUtil jwtUtil;
@@ -60,6 +61,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         //Adiciona o filtro de autenticação
         http.addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtUtil));
+
+        //Adiciona o filtro de autorização
+        http.addFilter(new JWTAuthorizationFilter(authenticationManager(), jwtUtil, userDetailsService));
 
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
