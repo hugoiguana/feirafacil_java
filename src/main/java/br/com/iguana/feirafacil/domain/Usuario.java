@@ -19,7 +19,11 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @Entity
 @Table(name = "usuario")
-@AttributeOverride(name = "id", column = @Column(name = "usu_id"))
+@AttributeOverrides({
+        @AttributeOverride(name = "id", column = @Column(name = "usu_id"))
+        , @AttributeOverride(name = "dataCriacao", column = @Column(name = "usu_data_criacao"))
+        , @AttributeOverride(name = "dataAlteracao", column = @Column(name = "usu_data_alteracao"))
+})
 public class Usuario extends EntidadePersistivel {
 
     @Column(name = "usu_nome")
@@ -32,13 +36,13 @@ public class Usuario extends EntidadePersistivel {
     private String senha;
 
     @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "perfis")
+    @CollectionTable(name = "perfis", joinColumns = @JoinColumn(name = "usu_id"))
+    @Column(name = "per_nome")
     private Set<Integer> perfis = new HashSet<>();
 
     @PrePersist
     public void prePersist() {
         super.prePersist();
-        addPerfil(Perfil.USUARIO);
     }
 
     public List<Perfil> getPerfis() {

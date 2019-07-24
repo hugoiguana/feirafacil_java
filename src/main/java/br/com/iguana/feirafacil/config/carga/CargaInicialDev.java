@@ -1,6 +1,7 @@
 package br.com.iguana.feirafacil.config.carga;
 
 import br.com.iguana.feirafacil.domain.Usuario;
+import br.com.iguana.feirafacil.domain.enums.Perfil;
 import br.com.iguana.feirafacil.repositories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -31,12 +32,15 @@ public class CargaInicialDev implements CommandLineRunner {
         u1.setNome("Hugo Iguana");
         u1.setEmail("hugo.iguanaa@gmail.com");
         u1.setSenha(passwordEncoder.encode("1234"));
+        u1.addPerfil(Perfil.ADMIN);
+        u1.addPerfil(Perfil.USUARIO);
 
         Usuario u2 = new Usuario();
         u2.setId(2l);
         u2.setNome("Aline Lucia");
         u2.setEmail("aline-4000@hotmail.com");
         u2.setSenha(passwordEncoder.encode("1234"));
+        u2.addPerfil(Perfil.USUARIO);
 
         usuarioRepository.saveAll(Arrays.asList(u1, u2));
     }
