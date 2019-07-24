@@ -1,10 +1,7 @@
 package br.com.iguana.feirafacil.domain;
 
 import br.com.iguana.feirafacil.domain.enums.Perfil;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -17,6 +14,7 @@ import java.util.stream.Collectors;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Entity
 @Table(name = "usuario")
 @AttributeOverrides({
@@ -29,7 +27,7 @@ public class Usuario extends EntidadePersistivel {
     @Column(name = "usu_nome")
     private String nome;
 
-    @Column(name = "usu_email")
+    @Column(name = "usu_email", unique = true)
     private String email;
 
     @Column(name = "usu_senha")
@@ -43,6 +41,7 @@ public class Usuario extends EntidadePersistivel {
     @PrePersist
     public void prePersist() {
         super.prePersist();
+        addPerfil(Perfil.USUARIO);
     }
 
     public List<Perfil> getPerfis() {
@@ -51,6 +50,9 @@ public class Usuario extends EntidadePersistivel {
 
     public void addPerfil(Perfil perfil) {
         if (perfil != null) {
+            if (perfis == null) {
+                perfis = new HashSet<>();
+            }
             perfis.add(perfil.getCodigo());
         }
     }

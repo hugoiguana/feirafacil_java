@@ -22,7 +22,7 @@ public class UsuarioService {
     }
 
     @Transactional
-    public Usuario salvar(Usuario u) {
+    public Usuario create(Usuario u) {
         return repository.save(u);
     }
 

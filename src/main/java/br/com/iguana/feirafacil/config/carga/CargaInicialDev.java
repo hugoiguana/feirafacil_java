@@ -23,7 +23,7 @@ public class CargaInicialDev implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        insertUsuarios();
+        //insertUsuarios();
     }
 
     private void insertUsuarios() {
