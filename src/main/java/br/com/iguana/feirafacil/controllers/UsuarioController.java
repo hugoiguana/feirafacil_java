@@ -1,9 +1,11 @@
 package br.com.iguana.feirafacil.controllers;
 
+import br.com.iguana.feirafacil.config.orika.mapper.UsuarioDTOMapper;
 import br.com.iguana.feirafacil.domain.Usuario;
 import br.com.iguana.feirafacil.domain.enums.Perfil;
 import br.com.iguana.feirafacil.dto.UsuarioDTO;
 import br.com.iguana.feirafacil.services.UsuarioService;
+import ma.glasnost.orika.MapperFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -24,6 +26,12 @@ public class UsuarioController {
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
+    @Autowired
+    private MapperFacade mapper;
+
+    @Autowired
+    private UsuarioDTOMapper usuarioDTOMapper;
+
     @GetMapping(value = "/todos")
     public ResponseEntity<List<Usuario>> todos() {
         List<Usuario> usuarios = service.obterUsuarios();
@@ -32,11 +40,7 @@ public class UsuarioController {
 
     @PostMapping(value = "/create")
     public ResponseEntity<Void> insert(@Valid @RequestBody UsuarioDTO dto) {
-        Usuario usuario = Usuario.builder()
-                .nome(dto.getNome())
-                .email(dto.getEmail())
-                .senha(passwordEncoder.encode(dto.getSenha()))
-                .build();
+        Usuario usuario = mapper.map(dto, Usuario.class);
         usuario.addPerfil(Perfil.USUARIO);
         service.create(usuario);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(usuario.getId()).toUri();
