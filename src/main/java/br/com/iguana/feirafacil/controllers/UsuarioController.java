@@ -38,7 +38,7 @@ public class UsuarioController {
         return ResponseEntity.ok().body(usuarios);
     }
 
-    @PostMapping(value = "/create")
+    @PostMapping
     public ResponseEntity<Void> insert(@Valid @RequestBody UsuarioDTO dto) {
         Usuario usuario = mapper.map(dto, Usuario.class);
         usuario.addPerfil(Perfil.USUARIO);
