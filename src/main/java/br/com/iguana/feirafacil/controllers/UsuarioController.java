@@ -5,7 +5,6 @@ import br.com.iguana.feirafacil.domain.Usuario;
 import br.com.iguana.feirafacil.domain.enums.Perfil;
 import br.com.iguana.feirafacil.dto.UsuarioDTO;
 import br.com.iguana.feirafacil.services.UsuarioService;
-import br.com.iguana.feirafacil.services.exception.ObjectNotFoundException;
 import ma.glasnost.orika.MapperFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -44,10 +43,6 @@ public class UsuarioController {
         Usuario usuario = mapper.map(dto, Usuario.class);
         usuario.addPerfil(Perfil.USUARIO);
         service.create(usuario);
-
-        if (true) {
-            throw new ObjectNotFoundException("erro cara");
-        }
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(usuario.getId()).toUri();
         return ResponseEntity.created(uri).build();
     }

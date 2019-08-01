@@ -1,5 +1,6 @@
 package br.com.iguana.feirafacil.dto;
 
+import br.com.iguana.feirafacil.services.validation.UsuarioInsert;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,6 +14,7 @@ import java.io.Serializable;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@UsuarioInsert
 public class UsuarioDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
