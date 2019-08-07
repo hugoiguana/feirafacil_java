@@ -28,7 +28,7 @@ public class UsuarioInsertValidator implements ConstraintValidator<UsuarioInsert
         if (u != null) {
             list.add(new FieldMessage("email", "Email já existente"));
         }
-        if (Senha.isNotValid(u.getSenha())) {
+        if (Senha.isNotValid(dto.getSenha())) {
             list.add(new FieldMessage("senha", "Senha não inválida. " +
                     "A senha deve ter no mínimo 8 caracteres com um dígito numérico, uma letra minúscula, " +
                     "uma maiúscula e um caractere especial."));
