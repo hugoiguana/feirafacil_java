@@ -4,6 +4,7 @@ import br.com.iguana.feirafacil.controllers.exception.FieldMessage;
 import br.com.iguana.feirafacil.domain.Usuario;
 import br.com.iguana.feirafacil.dto.UsuarioDTO;
 import br.com.iguana.feirafacil.services.UsuarioService;
+import br.com.iguana.feirafacil.util.Senha;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.validation.ConstraintValidator;
@@ -26,6 +27,11 @@ public class UsuarioInsertValidator implements ConstraintValidator<UsuarioInsert
         Usuario u = usuarioService.getRepository().findByEmail(dto.getEmail());
         if (u != null) {
             list.add(new FieldMessage("email", "Email já existente"));
+        }
+        if (Senha.isNotValid(u.getSenha())) {
+            list.add(new FieldMessage("senha", "Senha não inválida. " +
+                    "A senha deve ter no mínimo 8 caracteres com um dígito numérico, uma letra minúscula, " +
+                    "uma maiúscula e um caractere especial."));
         }
         for (FieldMessage e : list) {
             context.disableDefaultConstraintViolation();
