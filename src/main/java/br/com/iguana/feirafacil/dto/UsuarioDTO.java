@@ -1,10 +1,7 @@
 package br.com.iguana.feirafacil.dto;
 
 import br.com.iguana.feirafacil.services.validation.UsuarioInsert;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
@@ -12,6 +9,7 @@ import java.io.Serializable;
 
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @UsuarioInsert

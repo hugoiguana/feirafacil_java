@@ -32,10 +32,19 @@ public class UsuarioController {
     @Autowired
     private UsuarioDTOMapper usuarioDTOMapper;
 
+
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<UsuarioDTO> obter(@PathVariable Long id) {
+        Usuario usuario = service.obter(id);
+        UsuarioDTO dto = mapper.map(usuario, UsuarioDTO.class);
+        return ResponseEntity.ok().body(dto);
+    }
+
     @GetMapping(value = "/todos")
-    public ResponseEntity<List<Usuario>> todos() {
+    public ResponseEntity<List<UsuarioDTO>> todos() {
         List<Usuario> usuarios = service.obterUsuarios();
-        return ResponseEntity.ok().body(usuarios);
+        List<UsuarioDTO> usuariosDto = mapper.mapAsList(usuarios, UsuarioDTO.class);
+        return ResponseEntity.ok().body(usuariosDto);
     }
 
     @PostMapping

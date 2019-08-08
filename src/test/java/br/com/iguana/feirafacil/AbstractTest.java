@@ -1,9 +1,12 @@
 package br.com.iguana.feirafacil;
 
+import br.com.iguana.feirafacil.domain.Usuario;
+import br.com.iguana.feirafacil.services.UsuarioService;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import ma.glasnost.orika.MapperFacade;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -25,10 +28,22 @@ import java.io.IOException;
 @WebAppConfiguration
 public abstract class AbstractTest {
 
-    protected MockMvc mvc;
-
     @Autowired
     protected WebApplicationContext webApplicationContext;
+
+    @Autowired
+    protected MapperFacade mapper;
+
+    @Autowired
+    protected UsuarioService usuarioService;
+
+    protected MockMvc mvc;
+
+    protected Usuario usuarioQualquer;
+
+    public AbstractTest() {
+        usuarioQualquer = Usuario.builder().nome("iguana").email("hugo.iguanaa@gmail.com").senha("12345hI@").build();
+    }
 
     protected void setUp() {
         mvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
