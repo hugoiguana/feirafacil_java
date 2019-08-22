@@ -18,8 +18,7 @@ public class CargaInicialDev implements CommandLineRunner {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-    @Autowired
-    private BCryptPasswordEncoder passwordEncoder;
+    private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     @Override
     public void run(String... args) throws Exception {
