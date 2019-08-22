@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "usuario")
+@Table(name = "usu_usuario")
 @AttributeOverrides({
         @AttributeOverride(name = "id", column = @Column(name = "usu_id"))
         , @AttributeOverride(name = "dataCriacao", column = @Column(name = "usu_data_criacao"))
@@ -36,6 +36,9 @@ public class Usuario extends EntidadePersistivel {
     @CollectionTable(name = "perfis", joinColumns = @JoinColumn(name = "usu_id"))
     @Column(name = "per_nome")
     private Set<Integer> perfis = new HashSet<>();
+
+    @OneToMany(mappedBy = "usuario")
+    private Set<Feira> feiras = new HashSet<>();
 
     @PrePersist
     public void prePersist() {
