@@ -1,17 +1,36 @@
 package br.com.iguana.feirafacil.controllers;
 
 import br.com.iguana.feirafacil.AbstractTest;
+import br.com.iguana.feirafacil.FeiraFacilApplication;
 import br.com.iguana.feirafacil.domain.Usuario;
 import br.com.iguana.feirafacil.dto.UsuarioDTO;
+import br.com.iguana.feirafacil.services.UsuarioService;
+import ma.glasnost.orika.MapperFacade;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MvcResult;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+@ActiveProfiles("test")
+@RunWith(SpringJUnit4ClassRunner.class)
+@SpringBootTest(classes = FeiraFacilApplication.class)
+@WebAppConfiguration
 public class UsuarioControllerTest extends AbstractTest {
+
+    @Autowired
+    protected MapperFacade mapper;
+
+    @Autowired
+    protected UsuarioService usuarioService;
 
     private Usuario usuarioQualquer2;
 
