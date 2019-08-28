@@ -31,14 +31,10 @@ public class UsuarioService {
 
     @Transactional(readOnly = true)
     public Usuario obter(Long id) {
-        Usuario u = null;
-        try {
-            u = repository.findById(id).get();
-        } catch (NoSuchElementException e) {
-            log.error("Usuário com id " + id + " não encontrado", e);
-            throw new ObjectNotFoundException("Usuário com id " + id + " não encontrado");
-        }
-        return u;
+        return repository.findById(id).orElseThrow(() -> {
+            log.error("Usuário com id " + id + " não encontrado");
+            return new ObjectNotFoundException("Usuário com id " + id + " não encontrado");
+        });
     }
 
     @Transactional

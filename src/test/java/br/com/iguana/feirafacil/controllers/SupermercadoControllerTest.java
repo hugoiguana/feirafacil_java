@@ -15,7 +15,7 @@ import org.springframework.http.ResponseEntity;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class SupermercadoControllerTest {
@@ -30,7 +30,7 @@ public class SupermercadoControllerTest {
     private SupermercadoController controller;
 
     @Test
-    public void insert_retornara_status_201_ok__quando_supermercado_for_criado() throws Exception {
+    public void insert_retornara_status_201_ok__quando_supermercado_for_criado() {
         SupermercadoDto dto = SupermercadoDto.builder().nome("Supermercado Iguana").build();
         Supermercado supermercado = Supermercado.builder().nome("Supermercado Iguana").build();
         when(mapper.map(dto, Supermercado.class)).thenReturn(supermercado);
@@ -40,5 +40,23 @@ public class SupermercadoControllerTest {
         assertEquals(response.getBody().getNome(), supermercado.getNome());
     }
 
+    @Test
+    public void obter_retornara_status_201_ok_quando_um_supermercado_for_encontrado() {
+        SupermercadoDto dto = SupermercadoDto.builder().id(1l).nome("Supermercado Iguana").build();
+        Supermercado supermercado = Supermercado.builder().nome("Supermercado Iguana").build();
+        when(service.obter(dto.getId())).thenReturn(supermercado);
+        when(mapper.map(supermercado, SupermercadoDto.class)).thenReturn(dto);
+        ResponseEntity<SupermercadoDto> response = controller.obter(dto.getId());
+        assertEquals(HttpStatus.OK.value(), response.getStatusCode().value());
+        assertEquals(response.getBody().getNome(), dto.getNome());
+    }
+
+    @Test
+    public void obter_retornara_status_404_not_found_quando_um_supermercado_nao_for_encontrado() {
+        SupermercadoController c = mock(SupermercadoController.class);
+        doReturn(ResponseEntity.status(HttpStatus.NOT_FOUND).build()).when(c).obter(any());
+        ResponseEntity response = c.obter(1l);
+        assertEquals(response.getStatusCode().value(), HttpStatus.NOT_FOUND.value());
+    }
 
 }

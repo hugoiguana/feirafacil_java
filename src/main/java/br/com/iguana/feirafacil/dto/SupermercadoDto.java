@@ -12,7 +12,8 @@ import java.io.Serializable;
 @AllArgsConstructor
 public class SupermercadoDto implements Serializable {
 
+    private Long id;
+
     @NotEmpty(message = "Campo obrigatório")
     private String nome;
-
 }
